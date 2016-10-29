@@ -10,3 +10,7 @@ priklad pouziti v `~/.bashrc`:
 ```
 PS1='\u@\h:${branchname}\w\$'
 ```
+
+## Potrebne prerekvizity
+- git
+- subversion
