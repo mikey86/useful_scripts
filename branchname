@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# version 20161022
+
+# zjisti pripadny git branch
+git branch > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    branchname=`git branch | grep "^*" | sed 's/^* //'`
+    echo "[$branchname]"
+    exit 0
+fi
+
+# pripadne zjisti svn revizi
+svn info > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    revision=`svn info | grep "^Revision:" | sed 's/Revision/svn rev/'`
+    echo "[$revision]"
+    exit 0
+fi
+
+# pokud neni ani jedno, vrati prazny retezec
+echo ""
