@@ -1,22 +1,20 @@
 #!/bin/bash
 
-# version 20161022
+# version 20161105
+
+#inicializace
+repo_info=""
 
 # zjisti pripadny git branch
-git branch > /dev/null 2>&1
-if [ $? -eq 0 ]; then
-    branchname=`git branch | grep "^*" | sed 's/^* //'`
-    echo "[$branchname]"
-    exit 0
+if git branch > /dev/null 2>&1; then
+    git_branchname=`git branch | grep "^*" | sed 's/^* //'`
+    repo_info="${repo_info}[${git_branchname}]"
 fi
 
 # pripadne zjisti svn revizi
-svn info > /dev/null 2>&1
-if [ $? -eq 0 ]; then
-    revision=`svn info | grep "^Revision:" | sed 's/Revision/svn rev/'`
-    echo "[$revision]"
-    exit 0
+if svn info > /dev/null 2>&1; then
+    svn_revision=`svn info | grep "^Revision:" | sed 's/Revision/svn rev/'`
+    repo_info="${repo_info}[${svn_revision}]"
 fi
 
-# pokud neni ani jedno, vrati prazny retezec
-echo ""
+echo "${repo_info}"
